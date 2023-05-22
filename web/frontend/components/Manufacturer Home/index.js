@@ -1,0 +1,1 @@
+export { ManufacturerHome } from "./ManufacturerHome";
