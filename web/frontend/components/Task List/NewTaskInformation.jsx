@@ -90,8 +90,8 @@ function NewTaskInformation(props) {
                                             )}
                                         >
                                             <option value="">Select Company</option>
-                                            {company.map((com) => {
-                                                return (<option value={com.company}>{com.company}</option>);
+                                            {company.map((com,index) => {
+                                                return (<option key={"company_"+index} value={com.company}>{com.company}</option>);
                                             })}
                                         </select>
                                     </div>
@@ -264,16 +264,16 @@ function NewTaskInformation(props) {
                                 props.new_task_created_at
                             )}
                         />
-                        {props.new_task_attachments_array.length === 0 ?
-                            viewFiles.map((file) => {
+                        {props.new_task_attachments_array !=undefined && props.new_task_attachments_array.length === 0 ?
+                            viewFiles.map((file,index) => {
                                 return (
-                                    <>
+                                    <div key={'task_attach_'+index}>
                                         {process.env.MIX_ENV === "local" ?
                                             <iframe src={JSON.parse(file.filenames).split('.').pop() == "doc" || JSON.parse(file.filenames).split('.').pop() == "docx" || JSON.parse(file.filenames).split('.').pop() == "xlsx" || JSON.parse(file.filenames).split('.').pop() == "xls" || JSON.parse(file.filenames).split('.').pop() == "xml" ? "https://docs.google.com/gview?url=" + window.location.origin + file.filepath + "&embedded=true" : window.location.origin + file.filepath}></iframe>
                                             :
                                             <iframe src={JSON.parse(file.filenames).split('.').pop() == "doc" || JSON.parse(file.filenames).split('.').pop() == "docx" || JSON.parse(file.filenames).split('.').pop() == "xlsx" || JSON.parse(file.filenames).split('.').pop() == "xls" || JSON.parse(file.filenames).split('.').pop() == "xml" ? "https://docs.google.com/gview?url=" + window.location.origin + '/public/storage/files/' + JSON.parse(file.filenames) + "&embedded=true" : window.location.origin + '/public/storage/files/' + JSON.parse(file.filenames)}></iframe>
                                         }
-                                    </>
+                                    </div>
                                 );
                             })
                             : null}

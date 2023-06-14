@@ -25,6 +25,15 @@ function SpecialOrderDetails(props) {
     //     let fetchRes = fetch(url, options);
     //     fetchRes.then((res) => res.json()).then((d) => { setShopOwner(d.data.shop.shop_owner); });
     // }, []);
+
+    const handleMouseEnter = (value,event)=>{
+        if(value == "enter"){
+        event.target.style.borderBottom = "1.5px solid #000";
+        } else{
+            event.target.style.borderBottom = "none";
+        }
+            }
+
     return (
         <div>
             <h2 className="main-heading">Special Order</h2>
@@ -128,7 +137,7 @@ function SpecialOrderDetails(props) {
                         <div className="sel-wrap text-left no-style-file">
                             {props.orderPageOn === "edit" ?
                                 <>
-                                    {props.src !== "" ?
+                                    {(props.src !== "" && props.src != "null" && props.src != null) ?
                                         <>
                                             <img src={props.src} alt="" width="150" height="150" />
                                             <div className="crossIcon" onClick={() => props.ProductsAction("", props.click)}><Icon source={CancelSmallMinor} color="base" /></div>
@@ -140,8 +149,8 @@ function SpecialOrderDetails(props) {
                                 :
                                 <>
                                     <input type="file" />
-                                    {props.src !== "" ?
-                                        <p className="selected-txt">Product Image Selected</p>
+                                    { props.src != undefined && props.src !== "" ?
+                                        <p className="selected-txt" style={{marginTop:"10px",marginBottom:"10px"}}>Product Image Selected</p>
                                         : null}
                                 </>
                             }
@@ -150,16 +159,20 @@ function SpecialOrderDetails(props) {
                     {props.orderPageOn === "edit" ?
                         <>
                             {props.src === "" ?
-                                <div className="prdct-img-div" onClick={() => {
+                                <div className="prdct-img-div"  onClick={() => {
                                     props.ProductsAction(props.src, true);
                                     navigate("/special_order/pagerouters/product_images");
-                                }}>Select Product Image</div>
+                                }}  onMouseEnter={(e)=>handleMouseEnter("enter",e)}
+                                onMouseLeave={(e)=>handleMouseEnter("leave",e)}>Select Product Image</div>
                                 : null}
                         </>
                         :
-                        <div to="/special_order/pagerouters/product_images" className="prdct-img-div" onClick={() =>
+                        <div to="/special_order/pagerouters/product_images" className="prdct-img-div" onClick={() =>{
                             props.ProductsAction(props.src, true)
-                        }>Select Product Image</div>
+                            navigate("/special_order/pagerouters/product_images")
+                        }   
+                        } onMouseEnter={(e)=>handleMouseEnter("enter",e)}
+                        onMouseLeave={(e)=>handleMouseEnter("leave",e)}>Select Product Image</div>
                     }
                     <div className="mandatory-star-wrap mandatory-star">
                         <label>Customer</label>
@@ -184,13 +197,14 @@ function SpecialOrderDetails(props) {
                         }
                         {props.customer_err && (<div>{errorMsg}</div>)}
                     </div>
-                    {props.customer !== "" ?
+                    {props.customer != undefined && props.customer !== "" ?
                         <p className="selected-txt">Customer Selected</p>
                         : null}
                     <div className="prdct-img-div" onClick={() => {
                         props.Action(props.customer, props.clicked, true);
                         navigate("/special_order/pagerouters/select_customer");
-                    }}>Select Customer</div>
+                    }} onMouseEnter={(e)=>handleMouseEnter("enter",e)}
+                    onMouseLeave={(e)=>handleMouseEnter("leave",e)}>Select Customer</div>
                     <div className="mandatory-star-wrap mandatory-star">
                         <label>Manufacturer</label>
                         {props.manu === "" ?
@@ -214,16 +228,18 @@ function SpecialOrderDetails(props) {
                         }
                         {props.manufacturer_err && (<div>{errorMsg}</div>)}
                     </div>
-                    {props.manu !== "" ?
+                    
+                    {props.manu != undefined && props.manu !== "" ?
                         <p className="selected-txt">Manufacturer Selected</p>
                         : null}
                     <div className="prdct-img-div" onClick={() => {
                         props.ManuAction(props.manu, true);
                         navigate("/special_order/pagerouters/select_manufacturer");
-                    }}>Select Manufacturer</div>
+                    }} onMouseEnter={(e)=>handleMouseEnter("enter",e)}
+                    onMouseLeave={(e)=>handleMouseEnter("leave",e)}>Select Manufacturer</div>
                     <div className="mandatory-star-wrap">
                         <label>Created by</label>
-                        <input value={shopOwner} className="created-disable"
+                        <input value={props.shopOwner} className="created-disable"
                             disabled="disabled"
                         />
                     </div>
@@ -267,7 +283,8 @@ const mapStateToProps = (state) => {
         customer_err: state.customer_err,
         manufacturer_err: state.manufacturer_err,
         order_id: state.order_id,
-        orderPageOn: state.orderPageOn
+        orderPageOn: state.orderPageOn,
+        shopOwner:state.shop_owner
     };
 };
 

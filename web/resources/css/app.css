@@ -305,9 +305,9 @@ tr.table-orders:last-child {
     margin-right: 15px;
 }
 
-.Polaris-Tabs__Tab {
+/* .Polaris-Tabs__Tab {
     border: solid 1px #adadad;
-}
+} */
 
 .Polaris-Filters-ConnectedFilterControl__CenterContainer+.Polaris-Filters-ConnectedFilterControl__RightContainer {
     margin-left: 15px !important;
@@ -1324,6 +1324,7 @@ ul.mass-actions li a.dropdown-item:hover {
     padding: 0.6rem 1em 0.6rem;
     font-weight: 600;
     color: #007bdb;
+    cursor: pointer;
 }
 
 .manu-short-wrap button.Polaris-Button {
@@ -1718,5 +1719,69 @@ body {
 
 .home-wrap .soryby-wrap.hideWrap {
     display: flex;
+    align-items: center;
     width: 100%;
+    gap: 5px;
 }
+
+.sort-wrap * {
+    margin: 0 !important;
+}
+.prdct-img-div{
+    cursor: pointer;
+}
+.dash-table td {
+    text-align: center;
+}
+.soryby-wrap, .Polaris-Filters-ConnectedFilterControl__Wrapper{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+
+
+.homesecwrap .dropdown-menu  p {
+    margin: 0;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #000;
+}
+
+.homesecwrap .dropdown-menu {
+    padding: 0;
+}
+
+.homesecwrap .dropdown-menu  li a {
+    padding: 0;
+    font-weight: 500;
+}
+
+.homesecwrap .dropdown-menu {
+    padding: 10px !important;
+    border-radius: 5px !important;
+}
+
+.homesecwrap .dropdown-menu ul li {
+    padding: 5px 10px;
+}
+
+.homesecwrap .dropdown-menu  li {
+    padding: 5px 10px;
+}
+
+.homesecwrap ul.mass-actions li a.dropdown-item:hover {
+    background: transparent;
+    color: #000;
+}
+
+.modal-dialog{
+    max-width: 505px;
+}
+
+.img_grid_preview {
+    display: flex;
+    gap: 10px;
+}
+

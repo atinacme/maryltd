@@ -32,7 +32,9 @@ export function AllDataManuAction(
     shipping_acc,
     notes,
     created_on,
-    company_err) {
+    company_err,
+    email_err
+    ) {
     return {
         type: ALL_DATA_MANU,
         company,
@@ -66,6 +68,7 @@ export function AllDataManuAction(
         shipping_acc,
         notes,
         created_on,
-        company_err
+        company_err,
+        email_err
     };
 };

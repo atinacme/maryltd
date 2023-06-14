@@ -8,7 +8,7 @@ import { Icon, Button } from "@shopify/polaris";
 import { MobileBackArrowMajor } from "@shopify/polaris-icons";
 import {
     Action, ProductsAction, ManufacturersAction, SpclOrderAction, NewSpclOrderAction, OrderPageOnAction,
-    CustomerCompanyAction, ErrorMsgAction
+    CustomerCompanyAction, ErrorMsgAction, SpclOrderDetailsArrayCheckerAction, EditOrderDataAction
 } from "../../components";
 import { connect } from "react-redux";
 import moment from 'moment';
@@ -30,6 +30,7 @@ const AddSpecialOrderPageLayout = (props) => {
     const navigate = useNavigate();
     var todayDate = new Date().toISOString().slice(0, 10);
     useEffect(() => {
+        props.SpclOrderDetailsArrayCheckerAction([]);
         if (props.clicked === true) {
             handleFirstPage();
         }
@@ -59,9 +60,10 @@ const AddSpecialOrderPageLayout = (props) => {
             props.Action("", false, false);
             props.ProductsAction("", false);
             props.ManuAction("", false);
-            props.SpclOrderAction("", "", "", "", "", "", "", "", []);
+            props.SpclOrderAction("not_sent", "", "", "", "", "", "", "", []);
         }
     }, []);
+
     const handleFirstPage = () => {
         navigate("/special_order/pagerouters");
         setFirstPageClass("active_hover-class");
@@ -72,6 +74,13 @@ const AddSpecialOrderPageLayout = (props) => {
         setSixthPageClass();
     };
     const handleSecondPage = () => {
+        document.querySelectorAll(".required_cls").forEach(itm => {
+            if (itm.value == "") {
+                array_error.push(itm.getAttribute("index"));
+            }
+        });
+        props.SpclOrderDetailsArrayCheckerAction([]);
+        props.SpclOrderDetailsArrayCheckerAction(array_error);
         navigate("/special_order/pagerouters/scanned_copy");
         setFirstPageClass();
         setSecondPageClass("active_hover-class");
@@ -79,8 +88,10 @@ const AddSpecialOrderPageLayout = (props) => {
         setFourthPageClass();
         setFivethPageClass();
         setSixthPageClass();
+        
     };
     const handleThirdPage = () => {
+        navigate("/special_order/pagerouters/select_customer");
         setFirstPageClass();
         setSecondPageClass();
         setThirdPageClass("active_hover-class");
@@ -89,6 +100,7 @@ const AddSpecialOrderPageLayout = (props) => {
         setSixthPageClass();
     };
     const handleFourthPage = () => {
+        navigate("/special_order/pagerouters/select_manufacturer");
         setFirstPageClass();
         setSecondPageClass();
         setThirdPageClass();
@@ -97,6 +109,7 @@ const AddSpecialOrderPageLayout = (props) => {
         setSixthPageClass();
     };
     const handleFivethPage = () => {
+        navigate("/special_order/pagerouters/product_images");
         setFirstPageClass();
         setSecondPageClass();
         setThirdPageClass();
@@ -105,6 +118,7 @@ const AddSpecialOrderPageLayout = (props) => {
         setSixthPageClass();
     };
     const handleSixthPage = () => {
+        navigate("/special_order/pagerouters/activity");
         setFirstPageClass();
         setSecondPageClass();
         setThirdPageClass();
@@ -113,17 +127,26 @@ const AddSpecialOrderPageLayout = (props) => {
         setSixthPageClass("active_hover-class");
     };
     const handleSaveSpecialOrder = async () => {
-        document.querySelectorAll(".required_cls").forEach(itm => {
-            if (itm.value == "") {
-                array_error.push(itm.getAttribute("AddSpecialOrderPageLayout"));
-            }
-        });
+        
+        if(props.spcl_order_details_array_checker.length==0){
+            document.querySelectorAll(".required_cls").forEach(itm => {
+                if (itm.value.trim() == "") {
+                    array_error.push(itm.getAttribute("index"));
+                }
+            });   
+        } else{
+            alert("Please Enter All Special Order Details.")
+            array_error = props.spcl_order_details_array_checker;
+        }
+    
         array_error.forEach(item => {
             array_checker[item] = true;
         });
         let checked_array = array_checker.every((item) => {
             return item == false;
         });
+        // console.log("check form checker",array_error,checked_array,document.querySelectorAll(".required_cls"));
+        // props.SpclOrderDetailsArrayCheckerAction(checked_array)
         props.ErrorMsgAction(array_checker[0], array_checker[1], array_checker[2], array_checker[3], array_checker[4], array_checker[5], array_checker[6], array_checker[7]);
         var formData = new FormData();
         if (props.orderPageOn === "edit") {
@@ -150,8 +173,11 @@ const AddSpecialOrderPageLayout = (props) => {
         formData.append('customer_company', props.cust_company);
         formData.append('manufacturer', props.manu);
         formData.append('product_image', props.src);
-        if (checked_array === true) {
-            if (props.order_id === "") {
+
+        console.log("checked error =>",checked_array,props.spcl_order_details_array_checker);
+     
+        if (checked_array === true) {   
+            if (props.order_id==undefined || props.order_id === "") {
                 let options = {
                     method: "POST",
                     body: formData
@@ -241,8 +267,12 @@ const AddSpecialOrderPageLayout = (props) => {
                         array_activity.push({ user: props.staff_member_logged_in, action: "Special Order Created", time: moment(result.data.created_at).format('MMM D, YYYY, h:mm:ss A') });
                         try {
                             const data = { user_order_data_id: result.data.id, array_activity: array_activity };
-                            await UserOrderActivityCreateService(data);
+                           const result1 = await UserOrderActivityCreateService(data);
+                            // if(result1){
+                            // props.EditOrderDataAction(result.data.id)
+                            // }
                         } catch { }
+                        
                     }
                 });
             } else {
@@ -366,7 +396,8 @@ const AddSpecialOrderPageLayout = (props) => {
                                         Scanned Copy
                                     </li>
                                 </div>
-                                {/* <div to="/AddSpecialOrderPage/select_customer">
+                                <div>
+                                {/* to="/AddSpecialOrderPage/select_customer" */}
                                     <li
                                         className={thirdPageClass}
                                         onClick={handleThirdPage}
@@ -374,7 +405,8 @@ const AddSpecialOrderPageLayout = (props) => {
                                         Select Customer
                                     </li>
                                 </div>
-                                <div to="/AddSpecialOrderPage/select_manufacturer">
+                                <div>
+                                {/* to="/AddSpecialOrderPage/select_manufacturer" */}
                                     <li
                                         className={fourthPageClass}
                                         onClick={handleFourthPage}
@@ -382,7 +414,8 @@ const AddSpecialOrderPageLayout = (props) => {
                                         Select Manufacturer
                                     </li>
                                 </div>
-                                <div to="/AddSpecialOrderPage/product_images">
+                                <div>
+                                {/* to="/AddSpecialOrderPage/product_images" */}
                                     <li
                                         className={fivethPageClass}
                                         onClick={handleFivethPage}
@@ -390,14 +423,15 @@ const AddSpecialOrderPageLayout = (props) => {
                                         Product Images
                                     </li>
                                 </div>
-                                <div to="/AddSpecialOrderPage/activity">
+                                <div>
+                                {/* to="/AddSpecialOrderPage/activity" */}
                                     <li
                                         className={sixthPageClass}
                                         onClick={handleSixthPage}
                                     >
                                         Activity
                                     </li>
-                                </div> */}
+                                </div>
                             </ul>
                         </div>
                     </div>
@@ -433,7 +467,8 @@ const mapStateToProps = (state) => {
         scanned_copy: state.scanned_copy,
         order_id: state.order_id,
         orderPageOn: state.orderPageOn,
-        staff_member_logged_in: state.staff_member_logged_in
+        staff_member_logged_in: state.staff_member_logged_in,
+        spcl_order_details_array_checker: state.spcl_order_details_array_checker
     };
 };
 
@@ -447,7 +482,9 @@ const mapDispatchToProps = (dispatch) => {
         NewSpclOrderAction: (order_create) => dispatch(NewSpclOrderAction(order_create)),
         ErrorMsgAction: (stock_err, quantity_err, karat_err, colour_err, size_err, desc_err, customer_err, manufacturer_err) => dispatch(ErrorMsgAction(stock_err, quantity_err, karat_err, colour_err, size_err, desc_err, customer_err, manufacturer_err)),
         OrderPageOnAction: (orderPageOn) => (dispatch(OrderPageOnAction(orderPageOn))),
-        CustomerCompanyAction: (cust_company) => dispatch(CustomerCompanyAction(cust_company))
+        CustomerCompanyAction: (cust_company) => dispatch(CustomerCompanyAction(cust_company)),
+        SpclOrderDetailsArrayCheckerAction: (spcl_order_details_array_checker) => dispatch(SpclOrderDetailsArrayCheckerAction(spcl_order_details_array_checker)),
+        EditOrderDataAction: (order_id) => dispatch(EditOrderDataAction(order_id)),
     };
 };
 

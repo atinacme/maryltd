@@ -5,7 +5,8 @@ import { AllDataManuAction } from "../Redux";
 
 /*------------This function has all the first tab form fields of add manufacturer----------*/
 function ManufacturerDetails(props) {
-    const errorMsg = "This is a required field."
+    const errorMsg = "This is a required field.";
+    var todayDate = new Date().toISOString().slice(0, 10);
     return (
         <div>
             <h2 className="main-heading">Manufacturer</h2>
@@ -48,7 +49,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                         {props.company_err && <div>{errorMsg}</div>}
@@ -89,7 +91,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -129,7 +132,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -169,7 +173,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -210,7 +215,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -250,7 +256,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -290,7 +297,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -331,7 +339,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -372,7 +381,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -413,7 +423,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -454,7 +465,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -495,7 +507,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -536,7 +549,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -577,7 +591,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -618,7 +633,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -659,7 +675,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -700,7 +717,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -741,7 +759,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -782,7 +801,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -823,7 +843,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -864,11 +885,12 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
-                    <div className="mandatory-star-wrap">
+                    <div className="mandatory-star-wrap mandatory-star">
                         <label>Email</label>
                         <input
                             className="required_cls"
@@ -905,10 +927,12 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
-                        <a href="#" onClick={() => window.open(`mailto:${props.email}}`)}>Open Email</a>
+                        {props.email_err && <div>{errorMsg}</div>}
+                        <a href="#" onClick={() => window.open(`mailto:${props.email}}`)} style={{marginTop:"5px"}}>Open Email</a>
                     </div>
                     <div className="mandatory-star-wrap">
                         <label>Email Other 1</label>
@@ -947,7 +971,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                         <a href="#" onClick={() => window.open(`mailto:${props.email_other_1}}`)}>Open Email</a>
@@ -989,7 +1014,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                         <a href="#" onClick={() => window.open(`mailto:${props.email_other_2}}`)}>Open Email</a>
@@ -1031,7 +1057,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                         <a href="#" onClick={() => window.open(`mailto:${props.email_other_3}}`)}>Open Email</a>
@@ -1073,7 +1100,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                         <a href="#" onClick={() => window.open(`mailto:${props.email_other_4}}`)}>Open Email</a>
@@ -1115,7 +1143,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                         <a href="#" onClick={() => window.open(`mailto:${props.email_other_5}}`)}>Open Email</a>
@@ -1157,7 +1186,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                         <a rel="noopener noreferrer" href="#" target="_blank" onClick={() => window.open(`https://${props.website}`, '_blank')}>Open Website</a>
@@ -1199,7 +1229,8 @@ function ManufacturerDetails(props) {
                                 e.target.value,
                                 props.notes,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -1239,7 +1270,8 @@ function ManufacturerDetails(props) {
                                 props.shipping_acc,
                                 e.target.value,
                                 props.created_on,
-                                props.company_err
+                                props.company_err,
+                                props.email_err
                             )}
                         />
                     </div>
@@ -1247,6 +1279,7 @@ function ManufacturerDetails(props) {
                         <label>Created on</label>
                         <input className="created-disable"
                             disabled="disabled"
+                            value={todayDate}
                         />
                     </div>
                 </FormLayout>
@@ -1289,7 +1322,8 @@ const mapStateToProps = (state) => {
         shipping_acc: state.shipping_acc,
         notes: state.notes,
         created_on: state.created_on,
-        company_err: state.company_err
+        company_err: state.company_err,
+        email_err:state.email_err
     };
 };
 
@@ -1328,7 +1362,7 @@ const mapDispatchToProps = (dispatch) => {
             shipping_acc,
             notes,
             created_on,
-            company_err) => dispatch(AllDataManuAction(
+            company_err,email_err) => dispatch(AllDataManuAction(
                 company,
                 tag,
                 contact,
@@ -1360,7 +1394,7 @@ const mapDispatchToProps = (dispatch) => {
                 shipping_acc,
                 notes,
                 created_on,
-                company_err))
+                company_err,email_err))
     };
 };
 

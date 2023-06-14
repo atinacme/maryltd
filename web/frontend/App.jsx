@@ -8,7 +8,8 @@ import AddSpecialOrderPage from "./pages/Add Special Order/AddSpecialOrderPageRo
 import ScannedCopy from "./pages/Add Special Order/ScannedCopy";
 
 import Routers2 from "./Routing/Routers";
-
+import './node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import {
   AppBridgeProvider,
   QueryProvider,
@@ -17,6 +18,7 @@ import {
 import { Provider } from "react-redux";
 import store from "./components/Redux/store";
 import "../resources/css/app.css";
+import PersistedStore from "./components/Redux/PersistedStore";
 
 export default function App() {
   // Any .tsx or .jsx files in /pages will become a route
@@ -25,7 +27,7 @@ export default function App() {
 
 
   return (
-    <Provider store={store}>
+    <Provider store={PersistedStore.getDefaultStore().store}>
       <PolarisProvider>
         <BrowserRouter>
           <AppBridgeProvider>

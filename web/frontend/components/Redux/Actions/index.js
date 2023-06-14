@@ -17,6 +17,7 @@ export { ManuPageOnAction } from "./ManuPageOnAction";
 export { ManufacturerDetailViewAction } from "./ManufacturerDetailViewAction";
 export { ManufacturersAction } from "./ManufacturersAction";
 export { NewSpclOrderAction } from "./NewSpclOrderAction";
+export { SpclOrderDetailsArrayCheckerAction } from "./SpclOrderDetailsArrayChecker";
 export { NewTaskAction } from "./NewTaskAction";
 export { NewTaskErrorMsgAction } from "./NewTaskErrorMsgAction";
 export { NewTaskPageOnAction } from "./NewTaskPageOnAction";

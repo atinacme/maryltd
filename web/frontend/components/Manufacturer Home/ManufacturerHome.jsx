@@ -127,7 +127,10 @@ export const ManufacturerHome = (props) => {
       <td><a href="#" onClick={() => { props.ViewSpclOrdersAction(true, manufacturer.company); navigate("/"); }}>View Special Orders</a></td>
     </tr>
   ));
-  const handleSort = async (e) => {
+  const handleSort = async (event) => {
+        setManuCompany("");
+        setManuTag("");
+        setManuPhone("");
     let show = sortOrder;
     let index = show.indexOf('asc');
     if (index != -1) {
@@ -135,10 +138,11 @@ export const ManufacturerHome = (props) => {
     } else {
       show = 'asc';
     }
-    const result = await ManufacturerDetailPaginationService(itemsPerPage, e.target.attributes[0].value, show, searchField, searchData, currentPage);
+    // e.target.attributes[0].value
+    const result = await ManufacturerDetailPaginationService(itemsPerPage, event, show, searchField, searchData, currentPage);
     setData(result.data);
     setManufacturers(result.data.data);
-    setSort(e.target.attributes[0].value);
+    setSort(event);
     setSortOrder(show);
   };
   const arrowMove =
@@ -155,14 +159,29 @@ export const ManufacturerHome = (props) => {
         />
       }
     </>;
+
+  function csvmaker(data) {
+      let csvRows = [];
+      const headers = Object.keys(data[0]);
+      csvRows.push(headers.join(','));
+
+      for (const row of data) {
+          const values = headers.map(e => {
+              return row[e]
+          })
+          csvRows.push(values.join(','))
+      }
+      return csvRows.join('\n')
+  }
+
   const handleExport = async () => {
     const headers = { 'Content-Type': 'blob' };
-    const config = { method: 'GET', url: window.location.origin + '/api/getAllManufacturers', responseType: 'arraybuffer', headers };
+    const config = { method: 'GET', url: window.location.origin + '/api/getAllManufacturers', responseType: 'json', headers };
     try {
       const response = await axios(config);
       const outputFilename = `${Date.now()}.${exportType}`;
-      // If you want to download file automatically using link attribute.
-      const url = URL.createObjectURL(new Blob([response.data]));
+      let data = csvmaker(response.data.data.data);
+      const url = URL.createObjectURL(new Blob([data], { type: 'text/csv' }));
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', outputFilename);
@@ -188,7 +207,7 @@ export const ManufacturerHome = (props) => {
           <Button onClick={() => { props.ManuPageOnAction("add"); navigate("/manufacturer/pagerouters"); }}>Add Manufacturer</Button>
         </div>
         <div className="soryby-wrap export-wrap">
-          <h1>Export to:</h1>
+          <h3>Export to:</h3>
           <div className="cust-select select">
             <select onChange={(e) => setExportType(e.target.value)} value={exportType} name="format" id="format">
               <option value="csv">CSV</option>
@@ -262,13 +281,13 @@ export const ManufacturerHome = (props) => {
           <table className="table">
             <thead>
               <tr>
-                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="id" data_sort="desc">Id</p>{arrowMove}</div></th>
-                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="company" data_sort="desc">Company</p>{arrowMove}</div></th>
-                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="tag" data_sort="desc">Tag</p>{arrowMove}</div></th>
-                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="phone" data_sort="desc">Phone</p>{arrowMove}</div></th>
-                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="colour" data_sort="desc">Pending Downtown</p>{arrowMove}</div></th>
-                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="size" data_sort="desc">Pending Uptown</p>{arrowMove}</div></th>
-                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="customer" data_sort="desc">Pending Warehouse</p>{arrowMove}</div></th>
+                <th scope="col" onClick={()=>handleSort("id")}><div className="sort-wrap"><p  value="id" data_sort="desc">Id</p>{arrowMove}</div></th>
+                <th scope="col" onClick={()=>handleSort("company")}><div className="sort-wrap"><p  value="company" data_sort="desc">Company</p>{arrowMove}</div></th>
+                <th scope="col" onClick={()=>handleSort("tag")}><div className="sort-wrap"><p  value="tag" data_sort="desc">Tag</p>{arrowMove}</div></th>
+                <th scope="col" onClick={()=>handleSort("phone")}><div className="sort-wrap"><p  value="phone" data_sort="desc">Phone</p>{arrowMove}</div></th>
+                <th scope="col" onClick={()=>handleSort("colour")}><div className="sort-wrap"><p  value="colour" data_sort="desc">Pending Downtown</p>{arrowMove}</div></th>
+                <th scope="col" onClick={()=>handleSort("size")}><div className="sort-wrap"><p  value="size" data_sort="desc">Pending Uptown</p>{arrowMove}</div></th>
+                <th scope="col" onClick={()=>handleSort("customer")}><div className="sort-wrap"><p  value="customer" data_sort="desc">Pending Warehouse</p>{arrowMove}</div></th>
                 <th scope="col">Edit</th>
                 {/* <th scope="col">Delete</th> */}
                 <th scope="col">Special Orders</th>
@@ -276,8 +295,8 @@ export const ManufacturerHome = (props) => {
             </thead>
             <tbody>
               <tr>
-                {/* <td>
-                </td> */}
+                <td>
+                </td>
                 <td>
                   <TextField
                     value={manuCompany}

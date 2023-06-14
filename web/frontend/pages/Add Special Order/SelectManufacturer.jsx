@@ -39,6 +39,15 @@ function SelectManufacturer(props) {
         const result = await SelectManufacturerService(sort, sortOrder, type, e);
         setManufacturers(result.data);
     };
+
+    const handleMouseEnter = (value,event)=>{
+        if(value == "enter"){
+        event.target.style.color = "#ba4000";
+        } else{
+            event.target.style.color = "#007bdb";
+        }
+    }
+
     const rowMarkup = manufacturers.length > 0 && manufacturers.map((manufacturer) => (
         <tr key={manufacturer.id}>
             <td>{manufacturer.id}</td>
@@ -47,6 +56,7 @@ function SelectManufacturer(props) {
             <td>{manufacturer.phone}</td>
             <td>
                 <div
+                style={{cursor:"pointer"}}
                     onClick={() => {
                         props.Action(
                             props.customer, true, props.click
@@ -56,14 +66,20 @@ function SelectManufacturer(props) {
                         );
                         navigate("/special_order/pagerouters");
                     }}
+
+                    onMouseEnter={(e)=>handleMouseEnter("enter",e)}
+                                onMouseLeave={(e)=>handleMouseEnter("leave",e)}
                 >
                     Select
                 </div>
             </td>
         </tr>
     ));
-    const handleSort = (e) => {
-        setSort(e.target.attributes[0].value);
+    const handleSort = (event) => {
+            setManuCompany("");
+            setManuTag("");
+            setManuPhone("");
+        setSort(event);
         let show = sortOrder;
         let index = show.indexOf('asc');
         if (index != -1) {
@@ -99,10 +115,10 @@ function SelectManufacturer(props) {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="id" data_sort="asc">ID</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="company" data_sort="asc">Company Name</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="tag" data_sort="asc">Tag</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="phone" data_sort="asc">Phone</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("id")}><div className="sort-wrap" ><p value="id" data_sort="asc">ID</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("company")}><div className="sort-wrap" ><p value="company" data_sort="asc">Company Name</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("tag")}><div className="sort-wrap" ><p value="tag" data_sort="asc">Tag</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("phone")}><div className="sort-wrap" ><p value="phone" data_sort="asc">Phone</p>{arrowMove}</div></th>
                             <th scope="col">Select</th>
                         </tr>
                     </thead>

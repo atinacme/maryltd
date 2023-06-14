@@ -1,4 +1,4 @@
-import { ALL_CHECKED_DATA, ALL_DATA, ALL_DATA_MANU, ATTACHMENTS_MANU, CUSTOMER_COMPANY, CUSTOMER_DATA, CUSTOMER_DETAIL_VIEW, DASHBOARD_TAB, EDIT_DATA_MANU, EDIT_NEW_TASK, EDIT_ORDER_DATA, EMAILTOSUPPLIER, ERROR_MSG, MANUFACTURER_DATA, MANUFACTURER_DETAIL_VIEW, MANUFACTURER_PAGE_DATA, MANU_PAGE_ON, NEW_SPCL_DATA, NEW_TASK_DATA, NEW_TASK_ERROR_MSG, NEW_TASK_PAGE_ON, ORDER_PAGE_ON, PRODUCT_DATA, SELECTED_CUSTOMER, SPCL_DATA, USER_AUTH, VIEW_SPCL_ORDERS } from "./Types";
+import { ALL_CHECKED_DATA, ALL_DATA, ALL_DATA_MANU, ATTACHMENTS_MANU, CUSTOMER_COMPANY, CUSTOMER_DATA, CUSTOMER_DETAIL_VIEW, DASHBOARD_TAB, EDIT_DATA_MANU, EDIT_NEW_TASK, EDIT_ORDER_DATA, EMAILTOSUPPLIER, ERROR_MSG, MANUFACTURER_DATA, MANUFACTURER_DETAIL_VIEW, MANUFACTURER_PAGE_DATA, MANU_PAGE_ON, NEW_SPCL_DATA, NEW_TASK_DATA, NEW_TASK_ERROR_MSG, NEW_TASK_PAGE_ON, ORDER_PAGE_ON, PRODUCT_DATA, SELECTED_CUSTOMER, SPCL_DATA, SPCL_ORDER_DETAILS_CHK, USER_AUTH, VIEW_SPCL_ORDERS } from "./Types";
 
 const initialState = {
     user_auth: false,
@@ -54,6 +54,7 @@ const initialState = {
     manufacturer_err: false,
     scanned_copy: [],
     order_create: false,
+    spcl_order_details_array_checker: [],
     order_id: "",
     company: "",
     tag: "",
@@ -87,6 +88,7 @@ const initialState = {
     notes: "",
     created_on: "",
     company_err: false,
+    email_err: false,
     attachments: "",
     attachments_notes: "",
     manu_id: "",
@@ -207,6 +209,11 @@ const Reducers = (state = initialState, action) => {
                 ...state,
                 order_create: action.order_create
             };
+        case SPCL_ORDER_DETAILS_CHK:
+            return {
+                ...state,
+                spcl_order_details_array_checker: action.spcl_order_details_array_checker
+            }
         case ERROR_MSG:
             return {
                 ...state,
@@ -258,7 +265,8 @@ const Reducers = (state = initialState, action) => {
                 shipping_acc: action.shipping_acc,
                 notes: action.notes,
                 created_on: action.created_on,
-                company_err: action.company_err
+                company_err: action.company_err,
+                email_err: action.email_err
             };
         case ATTACHMENTS_MANU:
             return {
@@ -346,4 +354,4 @@ const Reducers = (state = initialState, action) => {
     }
 };
 
-export default Reducers;
+export  { Reducers,initialState };

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\user_data;
+use App\Models\Session;
 use Illuminate\Http\Request;
 
 class UserDataController extends Controller
@@ -39,9 +40,9 @@ class UserDataController extends Controller
 
     public function GetProductsAll(Request $req){
         $api_key = env('SHOPIFY_API_KEY');
-        $getUserData =  user_data::where ('name', '=', $req->store)->first();
-        $pass = $getUserData->password;
-        $shop = $getUserData->name;
+        $getUserData =  Session::where ('shop', '=', $req->shop)->first();
+        $pass = $getUserData->access_token;
+        $shop = $getUserData->shop;
         $url = 'https://'.$api_key.':'.$pass.'@'.$shop.'/admin/api/2021-10/products.json';
         $client = new \GuzzleHttp\Client();
         $request = $client->get($url);
@@ -56,7 +57,6 @@ class UserDataController extends Controller
     }
 
     public function getShopData(Request $req){
-           return response()->json(['data'=>$req->All(),'status'=>200]); 
         $api_key = env('SHOPIFY_API_KEY');
         $getUserData =  user_data::where ('name', '=', $req->name)->first();
         $pass = $getUserData->access_token;

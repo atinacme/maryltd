@@ -45,10 +45,11 @@ function All(props) {
     const handleCheckbox = (e) => {
         let newArr = [...customers];
         newArr[e]["isChecked"] = !newArr[e]["isChecked"];
-        setCustomers(newArr);
         if (props.allData) {
             props.AllCheckedAction(props.allData.data.filter(v => v.isChecked === true));
         }
+        setCustomers(newArr);
+       
     };
     const handleSelectAll = () => {
         let newArr = [...customers];
@@ -182,10 +183,19 @@ function All(props) {
         const result = await AllPaginationService(props.item, props.sort, props.sortOrder, type, e, props.currentPage);
         props.AllPageAction(result.data, props.sort, props.sortOrder, type, e, props.currentPage, props.item);
     };
+
+    const handleMouseEnter = (value,event)=>{
+if(value == "enter"){
+event.target.style.color = "#ba4000";
+} else{
+    event.target.style.color = "#007bdb";
+}
+    }
+
     const rowMarkup = customers && customers.map((customer, index) => (
         <tr className="table-orders" key={customer.id}>
             <td scope="row">
-                <input type="checkbox" checked={customer.isChecked} onChange={() => handleCheckbox(index)} />
+                <input type="checkbox" checked={props.allPageChecked.length > 0 &&  props.allPageChecked.some(item=>item.id==customer.id)?true:false} onChange={() => handleCheckbox(index)} />
             </td>
             <div className="dash-table" onClick={() => {
                 props.Action(customer.customer, props.clicked, props.clickCust);
@@ -224,7 +234,8 @@ function All(props) {
                     </span>
                 </td>
             </div>
-            <td><a href="#" onClick={() => handleEmailBox(customer.id, customer.manufacturer)}>Send Email</a></td>
+            <td><a href="#" onClick={() => handleEmailBox(customer.id, customer.manufacturer)}  onMouseEnter={(e)=>handleMouseEnter("enter",e)}
+      onMouseLeave={(e)=>handleMouseEnter("leave",e)}>Send Email</a></td>
             <td className="generate_pdf">
                 <a href="#" onClick={async () => {
                     var result;
@@ -325,11 +336,22 @@ function All(props) {
                             },
                             html2canvas: { scale: 0.23 }
                         });
-                }}>Generate PDF</a>
+                }}   onMouseEnter={(e)=>handleMouseEnter("enter",e)}
+                onMouseLeave={(e)=>handleMouseEnter("leave",e)}>Generate PDF</a>
             </td>
         </tr >
     ));
-    const handleSort = (e) => {
+    const handleSort = (event) => {
+        setSearch({
+            id: "",
+            stock: "",
+            quantity: "",
+            karat: "",
+            colour: "",
+            size: "",
+            customer: "",
+            manufacturer: ""
+        });
         let show = props.sortOrder;
         let index = show.indexOf('asc');
         if (index != -1) {
@@ -337,7 +359,7 @@ function All(props) {
         } else {
             show = 'asc';
         }
-        props.AllPageAction(props.allData, e.target.attributes[0].value, show, props.searchOn, props.search, props.currentPage, props.item);
+        props.AllPageAction(props.allData, event, show, props.searchOn, props.search, props.currentPage, props.item);
     };
     const arrowMove =
         <>
@@ -399,9 +421,10 @@ function All(props) {
                                     <button
                                         className="btn btn-outline-secondary dropdown-toggle"
                                         type="button"
-                                        data-bs-toggle="dropdown"
+                                        data-bs-toggle={checked ? 'dropdown':""}
                                         aria-expanded="false"
                                     ></button>
+                                    {!checked && document.querySelector(".mass-actions.dropdown-menu.dropdown-menu-end")?.classList.remove("show")}
                                     <ul className="mass-actions dropdown-menu dropdown-menu-end">
                                         <p>Mass Actions</p>
                                         <li onClick={handleSelectAll}>
@@ -439,29 +462,29 @@ function All(props) {
                                     </ul>
                                 </div>
                             </th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="id" data_sort="asc">Id</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="stock_number" data_sort="asc">Stock #</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="quantity" data_sort="asc">Quantity</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="karat" data_sort="asc">Karat</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="colour" data_sort="asc">Colour</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="size" data_sort="asc">Size</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="customer" data_sort="asc">Customer</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="manufacturer" data_sort="asc">Manufacturer</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="status" data_sort="asc">Order Status</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("id")}><div className="sort-wrap"><p  value="id" data_sort="asc">Id</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("stock_number")}><div className="sort-wrap"><p  value="stock_number" data_sort="asc">Stock #</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("quantity")}><div className="sort-wrap"><p  value="quantity" data_sort="asc">Quantity</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("karat")}><div className="sort-wrap"><p  value="karat" data_sort="asc">Karat</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("colour")}><div className="sort-wrap"><p  value="colour" data_sort="asc">Colour</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("size")}><div className="sort-wrap"><p  value="size" data_sort="asc">Size</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("customer")}><div className="sort-wrap"><p  value="customer" data_sort="asc">Customer</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("manufacturer")}><div className="sort-wrap"><p  value="manufacturer" data_sort="asc">Manufacturer</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("status")}><div className="sort-wrap"><p  value="status" data_sort="asc">Order Status</p>{arrowMove}</div></th>
                             <th scope="col">Send To Supplier</th>
                             <th scope="col">Generate</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td scope="row">
-                                <div className="cust-select select">
+                            <td scope="row" style={{minWidth: "68px"}} >
+                                {/* <div className="cust-select select">
                                     <select name="format" id="format">
                                         <option value="any">Any</option>
                                         <option value="yes">yes</option>
                                         <option value="no">no</option>
                                     </select>
-                                </div>
+                                </div>   */}
                             </td>
                             <td>
                                 <TextField
@@ -571,7 +594,8 @@ const mapStateToProps = (state) => {
         manu: state.manufacturer,
         clickManu: state.manuClick,
         email_to_supplier: state.email_to_supplier,
-        scanned_copy: state.scanned_copy
+        scanned_copy: state.scanned_copy,
+        allPageChecked:state.allPageChecked
     };
 };
 

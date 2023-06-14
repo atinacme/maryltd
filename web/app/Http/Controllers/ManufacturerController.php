@@ -137,6 +137,7 @@ class ManufacturerController extends Controller
             $manuName=$res[0]->manufacturer;
             $email = $manuData::where('company', $manuName)->get();
         }
+       
         Mail::to($email[0]->email)->send(new OrderMail($res));
         return response()->json(['result'=>$res, 'mail_status'=>'mail sent successfully', 'status'=>200]);
     }

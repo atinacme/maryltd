@@ -25,7 +25,8 @@ const ManufacturerPageLayout = (props) => {
     };
     const navigate = useNavigate();
     const handleSaveManufacturer = async () => {
-        if (props.company !== "") {
+        console.log("check props All data menu action===>",props)
+        if (props.company !=null && props.company.trim() !== "" && props.email !==null && props.email.trim() !== "") {
             props.AllDataManuAction(
                 props.company,
                 props.tag,
@@ -58,6 +59,7 @@ const ManufacturerPageLayout = (props) => {
                 props.shipping_acc,
                 props.notes,
                 props.created_on,
+                false,
                 false
             );
             if (props.manuPageOn === "edit") {
@@ -101,6 +103,7 @@ const ManufacturerPageLayout = (props) => {
                         setSavedManu(false);
                         props.ManuPageOnAction("home");
                         props.EditManuDataAction("");
+                        props.AllDataManuAction("","","","","","","","","","","","","","","","","","","","","","","","","","","","","","");
                     }
                 } catch (e) { }
             } else {
@@ -143,48 +146,127 @@ const ManufacturerPageLayout = (props) => {
                         setSavedManu(false);
                         props.ManuPageOnAction("home");
                         props.EditManuDataAction("");
+                        props.AllDataManuAction("","","","","","","","","","","","","","","","","","","","","","","","","","","","","","");
                     }
                 } catch (e) { }
             }
         } else {
-            props.AllDataManuAction(
-                props.company,
-                props.tag,
-                props.contact,
-                props.phone,
-                props.phone_ext,
-                props.phone_other_1,
-                props.phone_other_2,
-                props.phone_other_3,
-                props.fax,
-                props.toll_free,
-                props.toll_free_ext,
-                props.cell,
-                props.home_phone,
-                props.department,
-                props.address,
-                props.address_line_2,
-                props.address_line_3,
-                props.city,
-                props.province,
-                props.country,
-                props.postal_code,
-                props.email,
-                props.email_other_1,
-                props.email_other_2,
-                props.email_other_3,
-                props.email_other_4,
-                props.email_other_5,
-                props.website,
-                props.shipping_acc,
-                props.notes,
-                props.created_on,
-                true
-            );
+            if(props.company !== "" && props.email == ""){
+                props.AllDataManuAction(
+                    props.company,
+                    props.tag,
+                    props.contact,
+                    props.phone,
+                    props.phone_ext,
+                    props.phone_other_1,
+                    props.phone_other_2,
+                    props.phone_other_3,
+                    props.fax,
+                    props.toll_free,
+                    props.toll_free_ext,
+                    props.cell,
+                    props.home_phone,
+                    props.department,
+                    props.address,
+                    props.address_line_2,
+                    props.address_line_3,
+                    props.city,
+                    props.province,
+                    props.country,
+                    props.postal_code,
+                    props.email,
+                    props.email_other_1,
+                    props.email_other_2,
+                    props.email_other_3,
+                    props.email_other_4,
+                    props.email_other_5,
+                    props.website,
+                    props.shipping_acc,
+                    props.notes,
+                    props.created_on,
+                    false,
+                    true
+                );
+            }
+            if(props.company == "" && props.email !== ""){
+                props.AllDataManuAction(
+                    props.company,
+                    props.tag,
+                    props.contact,
+                    props.phone,
+                    props.phone_ext,
+                    props.phone_other_1,
+                    props.phone_other_2,
+                    props.phone_other_3,
+                    props.fax,
+                    props.toll_free,
+                    props.toll_free_ext,
+                    props.cell,
+                    props.home_phone,
+                    props.department,
+                    props.address,
+                    props.address_line_2,
+                    props.address_line_3,
+                    props.city,
+                    props.province,
+                    props.country,
+                    props.postal_code,
+                    props.email,
+                    props.email_other_1,
+                    props.email_other_2,
+                    props.email_other_3,
+                    props.email_other_4,
+                    props.email_other_5,
+                    props.website,
+                    props.shipping_acc,
+                    props.notes,
+                    props.created_on,
+                    true,
+                    false
+                );
+            }
+            if(props.company == "" && props.email == ""){
+                props.AllDataManuAction(
+                    props.company,
+                    props.tag,
+                    props.contact,
+                    props.phone,
+                    props.phone_ext,
+                    props.phone_other_1,
+                    props.phone_other_2,
+                    props.phone_other_3,
+                    props.fax,
+                    props.toll_free,
+                    props.toll_free_ext,
+                    props.cell,
+                    props.home_phone,
+                    props.department,
+                    props.address,
+                    props.address_line_2,
+                    props.address_line_3,
+                    props.city,
+                    props.province,
+                    props.country,
+                    props.postal_code,
+                    props.email,
+                    props.email_other_1,
+                    props.email_other_2,
+                    props.email_other_3,
+                    props.email_other_4,
+                    props.email_other_5,
+                    props.website,
+                    props.shipping_acc,
+                    props.notes,
+                    props.created_on,
+                    true,
+                    true
+                );
+            }
+           
         }
     };
     const handleSaveContinueEdit = async () => {
-        if (props.company !== "") {
+        if (props.company.trim() !== "" && props.email.trim() !== "") {
             props.AllDataManuAction(
                 props.company,
                 props.tag,
@@ -344,40 +426,117 @@ const ManufacturerPageLayout = (props) => {
                 }
             }
         } else {
-            props.AllDataManuAction(
-                props.company,
-                props.tag,
-                props.contact,
-                props.phone,
-                props.phone_ext,
-                props.phone_other_1,
-                props.phone_other_2,
-                props.phone_other_3,
-                props.fax,
-                props.toll_free,
-                props.toll_free_ext,
-                props.cell,
-                props.home_phone,
-                props.department,
-                props.address,
-                props.address_line_2,
-                props.address_line_3,
-                props.city,
-                props.province,
-                props.country,
-                props.postal_code,
-                props.email,
-                props.email_other_1,
-                props.email_other_2,
-                props.email_other_3,
-                props.email_other_4,
-                props.email_other_5,
-                props.website,
-                props.shipping_acc,
-                props.notes,
-                props.created_on,
-                true
-            );
+            if(props.company.trim() !== "" && props.email.trim() == ""){
+                props.AllDataManuAction(
+                    props.company,
+                    props.tag,
+                    props.contact,
+                    props.phone,
+                    props.phone_ext,
+                    props.phone_other_1,
+                    props.phone_other_2,
+                    props.phone_other_3,
+                    props.fax,
+                    props.toll_free,
+                    props.toll_free_ext,
+                    props.cell,
+                    props.home_phone,
+                    props.department,
+                    props.address,
+                    props.address_line_2,
+                    props.address_line_3,
+                    props.city,
+                    props.province,
+                    props.country,
+                    props.postal_code,
+                    props.email,
+                    props.email_other_1,
+                    props.email_other_2,
+                    props.email_other_3,
+                    props.email_other_4,
+                    props.email_other_5,
+                    props.website,
+                    props.shipping_acc,
+                    props.notes,
+                    props.created_on,
+                    false,
+                    true
+                );
+            }
+            if(props.company.trim() == "" && props.email.trim() !== ""){
+                props.AllDataManuAction(
+                    props.company,
+                    props.tag,
+                    props.contact,
+                    props.phone,
+                    props.phone_ext,
+                    props.phone_other_1,
+                    props.phone_other_2,
+                    props.phone_other_3,
+                    props.fax,
+                    props.toll_free,
+                    props.toll_free_ext,
+                    props.cell,
+                    props.home_phone,
+                    props.department,
+                    props.address,
+                    props.address_line_2,
+                    props.address_line_3,
+                    props.city,
+                    props.province,
+                    props.country,
+                    props.postal_code,
+                    props.email,
+                    props.email_other_1,
+                    props.email_other_2,
+                    props.email_other_3,
+                    props.email_other_4,
+                    props.email_other_5,
+                    props.website,
+                    props.shipping_acc,
+                    props.notes,
+                    props.created_on,
+                    true,
+                    false
+                );
+            }
+            if(props.company.trim() == "" && props.email.trim() == ""){
+                props.AllDataManuAction(
+                    props.company,
+                    props.tag,
+                    props.contact,
+                    props.phone,
+                    props.phone_ext,
+                    props.phone_other_1,
+                    props.phone_other_2,
+                    props.phone_other_3,
+                    props.fax,
+                    props.toll_free,
+                    props.toll_free_ext,
+                    props.cell,
+                    props.home_phone,
+                    props.department,
+                    props.address,
+                    props.address_line_2,
+                    props.address_line_3,
+                    props.city,
+                    props.province,
+                    props.country,
+                    props.postal_code,
+                    props.email,
+                    props.email_other_1,
+                    props.email_other_2,
+                    props.email_other_3,
+                    props.email_other_4,
+                    props.email_other_5,
+                    props.website,
+                    props.shipping_acc,
+                    props.notes,
+                    props.created_on,
+                    true,
+                    true
+                );
+            }
         }
     };
     const handleDeleteManufacturer = async () => {
@@ -521,7 +680,8 @@ const mapDispatchToProps = (dispatch) => {
             shipping_acc,
             notes,
             created_on,
-            company_err) => dispatch(AllDataManuAction(
+            company_err,
+            email_err) => dispatch(AllDataManuAction(
                 company,
                 tag,
                 contact,
@@ -553,7 +713,8 @@ const mapDispatchToProps = (dispatch) => {
                 shipping_acc,
                 notes,
                 created_on,
-                company_err)),
+                company_err,
+                email_err)),
         EditManuDataAction: (manu_id) => (dispatch(EditManuDataAction(manu_id))),
         ManuPageOnAction: (manuPageOn) => (dispatch(ManuPageOnAction(manuPageOn))),
         AttachmentsManuAction: (attachments, attachments_notes) => dispatch(AttachmentsManuAction(attachments, attachments_notes))

@@ -65,7 +65,10 @@ function Activity(props) {
             <td>{activities.time}</td>
         </tr>
     ));
-    const handleSort = async (e) => {
+    const handleSort = async (event) => {
+           setUser("");
+           setAction("");
+           setTime("");
         let show = sortOrder;
         let index = show.indexOf('asc');
         if (index != -1) {
@@ -73,7 +76,8 @@ function Activity(props) {
         } else {
             show = 'asc';
         }
-        const result = await NewTaskActivityGetService(props.new_task_id, itemsPerPage, e.target.attributes[0].value, show, searchField, searchData, currentPage);
+        // e.target.attributes[0].value
+        const result = await NewTaskActivityGetService(props.new_task_id, itemsPerPage, event, show, searchField, searchData, currentPage);
         setData(result.data)
         setActivity(result.data.data)
         setSort(e.target.attributes[0].value)
@@ -137,10 +141,11 @@ function Activity(props) {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="id" data_sort="desc">ID</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="user" data_sort="desc">User</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="action" data_sort="desc">Action</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="time" data_sort="desc">Time</p>{arrowMove}</div></th>
+
+                            <th scope="col" onClick={()=>handleSort("id")}><div className="sort-wrap" ><p value="id" data_sort="desc">ID</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("user")}><div className="sort-wrap" ><p value="user" data_sort="desc">User</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("action")}><div className="sort-wrap" ><p value="action" data_sort="desc">Action</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("time")}><div className="sort-wrap" ><p value="time" data_sort="desc">Time</p>{arrowMove}</div></th>
                         </tr>
                     </thead>
                     <tbody>

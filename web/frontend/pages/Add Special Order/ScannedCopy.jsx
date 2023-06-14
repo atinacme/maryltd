@@ -31,8 +31,14 @@ function ScannedCopy(props) {
                         onChange={(e) => props.SpclOrderAction(props.status, props.stock, props.quantity, props.karat, props.colour, props.size, props.desc, props.cust_notes, Array.from(e.target.files))}
                     />
                 </div>
+                {props.scanned_copy.length > 0 &&
+                <div className="img_grid_preview">
+                {props.scanned_copy.map((item,index)=><div key={"image_key"+index} className="image_wrapper_pre" style={{width:"200px",height: "200px"}}><img src={URL.createObjectURL(item)} width="100%" height="100%"  /></div>)}
+                </div>
+                }
                 {props.scanned_copy.length === 0 ?
                     viewFiles.map((file) => {
+                        console.log("url create image src data ===>",JSON.parse(file.filenames).split('.').pop() == "doc" || JSON.parse(file.filenames).split('.').pop() == "docx" || JSON.parse(file.filenames).split('.').pop() == "xlsx" || JSON.parse(file.filenames).split('.').pop() == "xls" || JSON.parse(file.filenames).split('.').pop() == "xml" ? "https://docs.google.com/gview?url=" + window.location.origin + file.filepath + "&embedded=true" : window.location.origin + file.filepath)
                         return (
                             <div className="scanned-iframe">
                                 {process.env.MIX_ENV === "local" ?

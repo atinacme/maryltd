@@ -34,7 +34,7 @@ const NewTaskPageLayout = (props) => {
     let array_activity = [];
     const handleSaveNewTask = async () => {
         document.querySelectorAll(".new_task_required_cls").forEach(itm => {
-            if (itm.value == "") {
+            if (itm.value.trim() == "") {
                 array_error.push(itm.getAttribute("index"));
             }
         });

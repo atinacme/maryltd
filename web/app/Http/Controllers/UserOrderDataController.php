@@ -120,8 +120,8 @@ class UserOrderDataController extends Controller
 
     public function GetUserOrderDataExceptComplete(Request $req,$per_page='15',$order_field='id',$order_type='asc',$searchField='status',$searchData="completed") {
         if($searchData != ""){
-            // $Alldata =  user_order_data::where($searchField, "!=", $searchData)->orderBy("$order_field","$order_type")->paginate($per_page);
-             $Alldata =  user_order_data::orderBy("$order_field","$order_type")->paginate($per_page);
+            $Alldata =  user_order_data::where($searchField, "!=", $searchData)->orderBy("$order_field","$order_type")->paginate($per_page);
+            //  $Alldata =  user_order_data::orderBy("$order_field","$order_type")->paginate($per_page);
         } else {
             $Alldata =  user_order_data::orderBy("$order_field","$order_type")->paginate($per_page);
         }
@@ -139,7 +139,7 @@ class UserOrderDataController extends Controller
             if ($req->status == "completed" && $req->email_notify == true) {
                 $res = $userOrderData::where ('id', '=', $arr)->first();
                 $customerName = $res->customer;
-                $customerEmail = $customerData::where('name', $customerName)->first();
+                $customerEmail = $customerData::where('company', $customerName)->first();
                 $email = $customerEmail->email;
                 Mail::to($email)->send(new OrderMailCustomer($res));
             }

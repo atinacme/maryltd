@@ -193,7 +193,7 @@ export const NewTaskHome = (props) => {
             }}>Generate PDF</a></td>
         </tr>
     ));
-    const handleSort = async (e) => {
+    const handleSort = async (event) => {   
         let show = sortOrder;
         let index = show.indexOf('asc');
         if (index != -1) {
@@ -201,16 +201,17 @@ export const NewTaskHome = (props) => {
         } else {
             show = 'asc';
         }
+        // e.target.attributes[0].value
         if (!allOrdersCheck) {
-            const result = await NewTaskExceptCompleteGetService(itemsPerPage, e.target.attributes[0].value, show, searchField, searchData, currentPage);
+            const result = await NewTaskExceptCompleteGetService(itemsPerPage, event, show, searchField, searchData, currentPage);
             setData(result.data);
             setNewTasks(result.data.data);
         } else {
-            const result = await NewTaskGetService(itemsPerPage, e.target.attributes[0].value, show, searchField, searchData, currentPage);
+            const result = await NewTaskGetService(itemsPerPage, event, show, searchField, searchData, currentPage);
             setData(result.data);
             setNewTasks(result.data.data);
         }
-        setSort(e.target.attributes[0].value);
+        setSort(event);
         setSortOrder(show);
     };
     const arrowMove =
@@ -278,19 +279,19 @@ export const NewTaskHome = (props) => {
                     </div>
                 </div>
             </Card>
-            <div>
+            <div style={{marginTop:"40px"}}>
                 <Card>
                     <table className="table">
                         <thead>
                             <tr>
-                                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="id" data_sort="desc">Id</p>{arrowMove}</div></th>
-                                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="created_at" data_sort="desc">Order Date</p>{arrowMove}</div></th>
-                                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="ship_date" data_sort="desc">Ship Date</p>{arrowMove}</div></th>
-                                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="company" data_sort="desc">Company Name</p>{arrowMove}</div></th>
-                                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="order_type" data_sort="desc">Order Type</p>{arrowMove}</div></th>
-                                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="status" data_sort="desc">Status</p>{arrowMove}</div></th>
-                                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="attachments" data_sort="desc">Attachment</p>{arrowMove}</div></th>
-                                <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="internal_notes" data_sort="desc">Note</p>{arrowMove}</div></th>
+                                <th scope="col" onClick={()=>handleSort("id")}><div className="sort-wrap" ><p value="id" data_sort="desc">Id</p>{arrowMove}</div></th>
+                                <th scope="col" onClick={()=>handleSort("created_at")}><div className="sort-wrap" ><p value="created_at" data_sort="desc">Order Date</p>{arrowMove}</div></th>
+                                <th scope="col" onClick={()=>handleSort("ship_date")}><div className="sort-wrap" ><p value="ship_date" data_sort="desc">Ship Date</p>{arrowMove}</div></th>
+                                <th scope="col" onClick={()=>handleSort("company")}><div className="sort-wrap" ><p value="company" data_sort="desc">Company Name</p>{arrowMove}</div></th>
+                                <th scope="col" onClick={()=>handleSort("order_type")}><div className="sort-wrap" ><p value="order_type" data_sort="desc">Order Type</p>{arrowMove}</div></th>
+                                <th scope="col" onClick={()=>handleSort("status")}><div className="sort-wrap" ><p value="status" data_sort="desc">Status</p>{arrowMove}</div></th>
+                                <th scope="col" onClick={()=>handleSort("attachments")}><div className="sort-wrap" ><p value="attachments" data_sort="desc">Attachment</p>{arrowMove}</div></th>
+                                <th scope="col" onClick={()=>handleSort("internal_notes")}><div className="sort-wrap" ><p value="internal_notes" data_sort="desc">Note</p>{arrowMove}</div></th>
                                 <th scope="col"><div className="sort-wrap"><p>Attachment</p></div></th>
                                 <th scope="col"><div className="sort-wrap"><p>Generate</p></div></th>
                             </tr>

@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux";
 import All from "./All";
 import CustomerDetail from "./CustomerDetail";
-import ManufacturerDetail from "./ManufacturerDetail";
+import ManufacturerDetail from "./ManufacturerDetail"; 
 import {
     AllPaginationService, CustomerDetailPaginationService, ManufacturerDetailPaginationService,
     OrderExceptCompleteGetService, UpdateOrdersService
@@ -155,7 +155,7 @@ function Home(props) {
                 const result = await UpdateOrdersService(data);
                 if (result) {
                     setCustomerEmailPopup(false);
-                    navigate("/special_order/home");
+                    navigate("/");
                     props.AllCheckedAction([]);
                 }
             } catch { }
@@ -179,7 +179,7 @@ function Home(props) {
                     };
                     const result = await UpdateOrdersService(data);
                     if (result) {
-                        navigate("/special_order/home");
+                        navigate("/");
                         props.AllCheckedAction([]);
                     }
                 } else {
@@ -206,7 +206,7 @@ function Home(props) {
                 const result = await UpdateOrdersService(data);
                 if (result) {
                     setCustomerEmailPopup(false);
-                    navigate("/special_order/home");
+                    navigate("/");
                     props.AllCheckedAction([]);
                 }
             } catch { }
@@ -285,7 +285,7 @@ function Home(props) {
                             </>
                         )}
                         <p className="admin__control-support-text">
-                            {data && data.total} records found {props.check.length > 0 ? `(${props.check.length} selected)` : ""}
+                            {data && data.total} records found {(props.check !=undefined && props.check.length > 0) ? `(${props.check.length} selected)` : ""}
                         </p>
                         <div className="sorting-right">
                             <div className="soryby-wrap">
@@ -320,12 +320,15 @@ function Home(props) {
                                 </>
                             }
                         </div>
+                        {props.cust_detail_view === true || props.manu_detail_view === true?"":
                         <div className="soryby-wrap hideWrap">
                             <Checkbox
                                 checked={allOrdersCheck}
                                 onChange={handleForAllOrdersCheck}
                             />Hide Completed Orders
                         </div>
+                         }
+
                     </div>
                     {props.order_create === true &&
                         <div className="messages">

@@ -34,6 +34,7 @@ function Dashboard(props) {
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
+                                cursor:"pointer"
                             }}
                         >
                             <img
@@ -58,6 +59,7 @@ function Dashboard(props) {
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
+                                cursor:"pointer"
                             }}
                         >
                             <img
@@ -85,6 +87,7 @@ function Dashboard(props) {
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
+                                cursor:"pointer"
                             }}
                         >
                             <img
@@ -104,6 +107,7 @@ function Dashboard(props) {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
+                            cursor:"pointer"
                         }}
                     >
                         <img
@@ -122,6 +126,7 @@ function Dashboard(props) {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
+                            cursor:"pointer"
                         }}
                     >
                         <img
@@ -140,6 +145,7 @@ function Dashboard(props) {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
+                            cursor:"pointer"
                         }}
                     >
                         <img
@@ -158,6 +164,7 @@ function Dashboard(props) {
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
+                            cursor:"pointer"
                         }}
                     >
                         <img

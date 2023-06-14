@@ -48,7 +48,10 @@ function ManufacturerDetail(props) {
         const result = await ManufacturerDetailPaginationService(props.manuItemsPerPage, props.manuSort, props.manuSortOrder, type, e, props.manuCurrentPage);
         props.ManuPageAction(result.data, props.manuSort, props.manuSortOrder, type, e, props.manuCurrentPage, props.manuItemsPerPage);
     };
-    const handleSort = (e) => {
+    const handleSort = (event) => {
+           setManuCompany("");
+           setManuTag("");
+           setManuPhone("");
         let show = props.manuSortOrder;
         let index = show.indexOf('asc');
         if (index != -1) {
@@ -56,7 +59,7 @@ function ManufacturerDetail(props) {
         } else {
             show = 'asc';
         }
-        props.ManuPageAction(props.manuPageData, e.target.attributes[0].value, show, props.manuSearchField, props.manuSearchData, props.manuCurrentPage, props.manuItemsPerPage);
+        props.ManuPageAction(props.manuPageData, event, show, props.manuSearchField, props.manuSearchData, props.manuCurrentPage, props.manuItemsPerPage);
     };
     const arrowMove =
         <>
@@ -78,10 +81,10 @@ function ManufacturerDetail(props) {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="id" data_sort="asc">Id</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="company" data_sort="asc">Company</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="tag" data_sort="asc">Tag</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="phone" data_sort="asc">Phone</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("id")}><div className="sort-wrap" ><p value="id" data_sort="asc">Id</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("company")}><div className="sort-wrap" ><p value="company" data_sort="asc">Company</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("tag")}><div className="sort-wrap" ><p value="tag" data_sort="asc">Tag</p>{arrowMove}</div></th>
+                            <th scope="col" onClick={()=>handleSort("phone")}><div className="sort-wrap" ><p value="phone" data_sort="asc">Phone</p>{arrowMove}</div></th>
                         </tr>
                     </thead>
                     <tbody>

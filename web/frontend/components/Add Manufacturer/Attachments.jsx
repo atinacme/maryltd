@@ -26,8 +26,9 @@ function Attachments(props) {
                     <p>New Attachment</p>
                     <input type="file" multiple="multiple" onChange={(e) => { props.AttachmentsManuAction(e.target.files, props.attachments_notes) }} />
                 </div>
+                <div className="attatchment_wrap">
                 {Array.from(props.attachments).map((file) =>
-                    <div>
+                    <div className="upload_img">
                         {/* {file.name.split('.').pop() === "jpg" || file.name.split('.').pop() === "jpeg" || file.name.split('.').pop() === "png" ?
                             <img src={URL.createObjectURL(file)} />
                             : file.name.split('.').pop() === "pdf" ?
@@ -39,6 +40,14 @@ function Attachments(props) {
                                 </Document>
                                 : */}
                         <iframe src={URL.createObjectURL(file)}></iframe>
+
+                        {/* style={{ display: "block",
+                        webkitUserSelect: "none",
+                        width: "100%",
+                        objectFit: "cover",
+                        height: "100%"}} */}
+
+
                         {/* } */}
                     </div>
                 )}
@@ -48,6 +57,7 @@ function Attachments(props) {
                         value={props.attachments_notes}
                         onChange={(e) => props.AttachmentsManuAction(props.attachments, e.target.value)}
                     />
+                </div>
                 </div>
             </div>
         </div>

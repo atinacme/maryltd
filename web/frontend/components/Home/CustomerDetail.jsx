@@ -48,6 +48,9 @@ function CustomerDetail(props) {
         </tr>
     ));
     const handleSort = (e) => {
+        setCusId("");
+        setCusName("");
+        setCusEmail("");
         let show = props.cusSortOrder;
         let index = show.indexOf('asc');
         if (index != -1) {
@@ -77,9 +80,9 @@ function CustomerDetail(props) {
                 <table className="table">
                     <thead>
                         <tr>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="customer_id" data_sort="asc">Id</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="name" data_sort="asc">Name</p>{arrowMove}</div></th>
-                            <th scope="col"><div className="sort-wrap"><p onClick={handleSort} value="email" data_sort="asc">Email</p>{arrowMove}</div></th>
+                            <th scope="col"><div className="sort-wrap" onClick={handleSort}><p value="customer_id" data_sort="asc">Id</p>{arrowMove}</div></th>
+                            <th scope="col"><div className="sort-wrap" onClick={handleSort}><p value="name" data_sort="asc">Name</p>{arrowMove}</div></th>
+                            <th scope="col"><div className="sort-wrap" onClick={handleSort}><p value="email" data_sort="asc">Email</p>{arrowMove}</div></th>
                         </tr>
                     </thead>
                     <tbody>
